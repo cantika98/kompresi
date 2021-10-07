@@ -137,29 +137,29 @@ void prtValue(double X) {
   if ((A >= 0.5) && (A <= 2.75))
   {
 //    Serial.print( "Delta: " );
-//    Serial.println(  X );
+    Serial.println(  X );
   }
   else if ((A >= 3.5) && ( A <= 6.75))
   {
 //    Serial.print( "Thetha: " );
-//    Serial.println(  X  );
+    Serial.println(  X  );
   }
 
   else if ((A >= 7.5 ) && (A <= 11.75))
   {
 //    Serial.print( "Alpha: " );
-//    Serial.println(  X  );
+    Serial.println(  X  );
   }
 
   else if ((A >= 13 ) && (A <= 29.75))
   {
 //    Serial.print( "Beta: " );
-//    Serial.println(  X  );
+    Serial.println(  X  );
   }
 
   else if ((A >= 31 ) && (0x83 <= 49.75))
   {
 //    Serial.print( "Gamma: " );
-//    Serial.println(  X  );
+    Serial.println(  X  );
   }
 }
