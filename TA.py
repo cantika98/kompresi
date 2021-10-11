@@ -53,59 +53,42 @@ i = 0 #iteration
 t = 15 #threshold
 
     
-for i in range(64):
+for i in range(2):
 
     # Compute the score of each atoms
     c = np.dot (A.T, r)
     absValues = np.abs (c)
         
     #noise level (standard deviation)
-    sd = LA.norm(r,2) / math.sqrt(N)
+    sd =  np.linalg.norm(r,2)/ math.sqrt(N)
    
     #find the desired indices greater
     tsd = t*sd
-    ind = np.where(absValues>=tsd)      
+    ind = np.where(absValues>=tsd)
     O = np.union1d(O, ind)
     vector = np.vectorize(int) #convert from float to int
     O = vector(O)
-    
-
     Ao = toeplitz[:,O]
-    #print(Ao)
-    x1 = np.linalg.inv(Ao.T.dot(Ao)).dot(Ao.T).dot(y)
-    r = y - A.dot(x_pre)
-    x_pre[O] = x1 
-    x_pre.size           
     
-final = x_pre
-inv_fft = np.fft.ifft(final)
-real_num = inv_fft.real
+    x1 = np.linalg.pinv (Ao)
+    tilda = (x1.dot (y)).T
     
+    x2 = tilda.T
+    
+    r = y - (Ao.dot(x2))
+    
+    x_pre[O] = tilda
+    final =x_pre[:, None]
+    x_pre.size 
 
+# print('result: ',x_pre)
 
-# In[15]:
-
-
-real_num
-
-
-# In[16]:
-
-
-plt_1 = plt.figure(figsize=(15, 5))
-
-plt.title("Original Signal of EEG")
-plt.xlabel("Wavelength (Panjang Data)")
-plt.plot(original, marker = 'o', label='Original')
-plt.plot(real_num, marker = 'o', label ='reconstructed')
-plt.legend()
-plt.grid()
-
-plt.show
-
-
-# In[ ]:
-
-
+inverse_fft = np.fft.ifft(x_pre)
+index = [0 , 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5 , 4, 3, 2, 1]
+idx = np.asarray(index)
+final1 = inverse_fft[index]
+real_num = final1.real
+finaal = abs(real_num)
+print(finaal)
 
 
